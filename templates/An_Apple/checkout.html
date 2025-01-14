@@ -1,0 +1,44 @@
+{% extends 'An_Apple/base.html' %}
+
+{% block title %}Checkout - An Apple eStore{% endblock %}
+
+{% block content %}
+<div class="checkout-section">
+    <h1>Checkout</h1>
+    
+    <h2>Banking Details</h2>
+    <p><strong>Bank Name:</strong> Capitec Bank</p>
+    <p><strong>Account Number:</strong> 1234567890</p>
+    <p><strong>Branch Number:</strong> 1111</p>
+    <p><strong>Linked Cellphone Number:</strong> 063 373 4018</p>
+
+    <h3>Upload Proof of Payment</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="proof_of_payment">Proof of Payment (PDF format)</label>
+            <input type="file" name="proof_of_payment" id="proof_of_payment" accept=".pdf" required>
+        </div>
+        <button type="submit" class="btn">Submit Proof of Payment</button>
+    </form>
+    
+    <h3>Order Summary</h3>
+    {% if cart_items %}
+        <ul class="order-items">
+            {% for item in cart_items %}
+                <li class="order-item">
+                    <span class="item-name">{{ item.product.name }}</span>
+                    <span class="item-quantity">x{{ item.quantity }}</span>
+                    <span class="item-total">R{{ item.total_price }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="order-totals">
+            <p><strong>Total Items:</strong> {{ cart_items|length }}</p>
+            <p><strong>Total Amount:</strong> R{{ cart_total }}</p>
+        </div>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+</div>
+{% endblock %}

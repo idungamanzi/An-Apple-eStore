@@ -1,0 +1,27 @@
+<!-- register.html -->
+{% extends 'An_Apple/base.html' %}
+
+{% block content %}
+<div class="register-container">
+    <h2>Register Your Account</h2>
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+    <div>
+        <label for="confirm-password">Confirm Password:</label>
+        <input type="password" id="confirm-password" name="confirm_password" required>
+    </div>
+    <button type="submit" class="btn">Register</button>
+</form>
+    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+</div>
+{% endblock %}

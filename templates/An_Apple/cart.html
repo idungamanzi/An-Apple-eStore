@@ -1,0 +1,55 @@
+{% extends 'An_Apple/base.html' %}
+
+{% block title %}Cart - Apple eStore{% endblock %}
+
+{% block content %}
+<div class="cart-section">
+    <h1>Your Cart</h1>
+    {% if cart_items %}
+    <table class="cart-table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>${{ item.product.price }}</td>
+                <td>
+                    <form method="post" action="{% url 'update_cart' item.id %}">
+                        {% csrf_token %}
+                        <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+                        <button type="submit">Update</button>
+                    </form>
+                </td>
+                <td>${{ item.total_price }}</td>
+                <td>
+                    <form method="post" action="{% url 'remove_from_cart' item.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn remove">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="cart-summary">
+        <p>Total: ${{ cart_total }}</p>
+        {% if user.is_authenticated %}
+        <a href="{% url 'checkout' %}" class="btn">Proceed to Checkout</a>
+        {% else %}
+        <p>Please <a href="{% url 'login' %}">log in</a> to proceed with the checkout.</p>
+        {% endif %}
+    </div>
+    {% else %}
+    <p>Your cart is empty. Start shopping now!</p>
+    <a href="{% url 'home' %}" class="btn">Shop Now</a>
+    {% endif %}
+</div>
+{% endblock %}

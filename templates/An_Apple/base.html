@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}An Apple eStore{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="logo">
+                <img src="{% static 'images/logo.jpg' %}" alt="Logo">
+            </div>
+            <div class="search-bar">
+                <form method="get" action="{% url 'product_filter' %}">
+                    <input type="text" name="search" placeholder="Search for products...">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <ul class="nav-links">
+                <li>
+                    <a href="#" id="wishlist-button">
+                        <i class="fa fa-heart"></i> <!-- Wishlist Icon -->
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="account-button">
+                        <i class="fa fa-user"></i> <!-- Account Icon -->
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="cart-toggle">
+                        <i class="fa fa-shopping-cart"></i> <!-- Cart Icon -->
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2025 An Apple eStore | All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
